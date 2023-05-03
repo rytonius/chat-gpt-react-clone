@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
 import './App.css'
-//const buttonElement = document.querySelector('button');
 
 const App = () => {
     const [count, setCount] = useState(0);
@@ -31,9 +30,12 @@ const App = () => {
             console.log(error);
         }
     }
-    //console.log(value);
-    //console.log(message);
-    
+
+    useEffect(() => {
+        for (const mybuttons of document.querySelectorAll("button")) {
+            mybuttons.onmousemove = e => handleOnMouseMove(e);
+        }
+    })    
     return (
     <>
         <div className="app">
@@ -44,7 +46,6 @@ const App = () => {
                     <li>hello</li>
                     <li>hello</li>
                 </ul>
-
                 <nav>
                     <h1>Handle with care</h1>
                 </nav>
@@ -67,15 +68,14 @@ const App = () => {
                     <p className="logo">All Your bases are belong to us</p>
                 </div>
             </section>
-
-
         </div>
 
     </>
     )
 }
 
-const handleOnMouseMove = e => {
+const handleOnMouseMove = async e => {
+
     const { currentTarget: target } = e;
 
     const rect = target.getBoundingClientRect(),
@@ -86,9 +86,37 @@ const handleOnMouseMove = e => {
     target.style.setProperty("--mouse-y", `${y}px`);
 }
 
-for (const mybuttons of document.querySelectorAll("button")) {
-    mybuttons.onmousemove = e => handleOnMouseMove(e);
-}
+
+
+
 
 
 export default App
+
+// Create a custom Button component and set the 'handleOnMouseMove ' function directly. Than use the Button wherever you want.
+
+// Button.ts
+
+// const handleOnMouseMove = e => {
+//     const { currentTarget: target } = e;
+
+//     const rect = target.getBoundingClientRect(),
+//         x = e.clientX - rect.left,
+//         y = e.clientY - rect.top;
+
+//     target.style.setProperty("--mouse-x", `${x}px`);
+//     target.style.setProperty("--mouse-y", `${y}px`);
+// }
+
+// const Button = (props) => {
+//   return <button {...props} onMouseMove={handleOnMouseMove } />
+// }
+
+
+// You run your loop which goes over all buttons on page right away when page loads. At this point your React app isn't mounted, thus document.querySelectorAll("button") will return empty NodeList. But when you change file, Vite will hot-reload it, which will execute this loop again. And since at this moment app is mounted and there is button, it will work.
+
+// But in general this approach isn't something you do in React. Better solution will be to remove for of loop at all and attach event handler to button in component, like you do with onClick:
+
+// <button onMouseMove={handleOnMouseMove} onClick={() => setCount((count) => count + 1)}>
+//     count is {count}
+// </button>

@@ -23,6 +23,26 @@
   --rgba-primary-5 : rgba(32, 32, 32, 1);
 
   --button-input-radius: 8px;
+
+  --shadow-color: 21deg 35% 36%;
+  --shadow-elevation-low:
+    -0.2px 0.4px 0.5px hsl(var(--shadow-color) / 0.63),
+    -0.3px 0.7px 0.8px -1.6px hsl(var(--shadow-color) / 0.53),
+    -0.8px 2px 2.2px -3.2px hsl(var(--shadow-color) / 0.43);
+  --shadow-elevation-medium:
+    -0.2px 0.4px 0.5px hsl(var(--shadow-color) / 0.66),
+    -0.6px 1.3px 1.4px -1.1px hsl(var(--shadow-color) / 0.58),
+    -1.6px 3.8px 4.2px -2.2px hsl(var(--shadow-color) / 0.51),
+    -4.2px 10px 11px -3.2px hsl(var(--shadow-color) / 0.43);
+  --shadow-elevation-high:
+    -0.2px 0.4px 0.5px hsl(var(--shadow-color) / 0.61),
+    -1px 2.5px 2.7px -0.5px hsl(var(--shadow-color) / 0.58),
+    -2px 4.9px 5.4px -0.9px hsl(var(--shadow-color) / 0.54),
+    -3.6px 8.7px 9.5px -1.4px hsl(var(--shadow-color) / 0.51),
+    -6.2px 14.9px 16.3px -1.9px hsl(var(--shadow-color) / 0.47),
+    -10.3px 24.6px 27px -2.3px hsl(var(--shadow-color) / 0.43),
+    -16.2px 38.8px 42.6px -2.8px hsl(var(--shadow-color) / 0.4),
+    -24.3px 58.3px 64px -3.2px hsl(var(--shadow-color) / 0.36);
 }
 
 * {
@@ -152,22 +172,23 @@ button {
   border-radius: var(--button-input-radius);
   border: 2px solid rgba(255,255,255, 0.5);
   padding: 0.6em 1.0em;
-  
+  display:flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
-
+  content:"";
   position: relative;
   cursor: pointer;
   box-shadow: #270655b7 -2px 2px 2px,
     #2706557a -6px 6px 8px;
+
 }
-button:hover {
-  border-color: var(--rgba-primary-2);
-}
+
 
 button:focus,
 button:focus-visible {
@@ -177,7 +198,7 @@ button:focus-visible {
 button::before {
   background: radial-gradient(
       500px circle at var(--mouse-x) var(--mouse-y),
-      rgba( 47, 57,236, 0.5),
+      rgb(46, 54, 197),
       transparent 40%
   );
   content: "";
@@ -189,6 +210,10 @@ button::before {
   width: 100%;
   opacity: 0;
   transition: opacity 500ms;
+}
+
+button:hover{
+  border-color: var(--rgba-primary-2);
 }
 
 button:hover::before {
