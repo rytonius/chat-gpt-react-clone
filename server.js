@@ -7,7 +7,8 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 
-const API_KEY = ''
+// eslint-disable-next-line no-undef
+const API_KEY = process.env.API_KEY_OPENAI;
 
 app.post('/completions', async (req, res) => {
     if (API_KEY === '') {
